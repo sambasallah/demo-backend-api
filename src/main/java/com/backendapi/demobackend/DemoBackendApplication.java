@@ -25,5 +25,11 @@ public class DemoBackendApplication {
 	}
 
 
+	@GetMapping("/is-healthy")
+	public String isHealthy() {
+		return "Yes";
+	}
+
+
 
 }
