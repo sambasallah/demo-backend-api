@@ -30,6 +30,9 @@ public class DemoBackendApplication {
 		return "Yes";
 	}
 
-
+	@GetMapping("/greetings")
+	public String greeting() {
+		return "Greetings";
+	}
 
 }
