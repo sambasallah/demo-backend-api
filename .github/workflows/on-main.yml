@@ -5,9 +5,11 @@ on:
     branches:
       - main
       - master
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
-  runs-tests:
+  runs-tests-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,3 +25,16 @@ jobs:
           maven-version: 3.8.2
       - name: Build with Maven
         run: mvn clean install
+
+      - uses: actions/checkout@v2
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
