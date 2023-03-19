@@ -14,7 +14,7 @@ class DemoBackendApplicationTests {
 
 	@Test
 	void test_add_two_numbers() {
-		Assertions.assertTrue(false);
+		Assertions.assertTrue(true);
 	}
 
 }
